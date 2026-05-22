@@ -8,28 +8,29 @@ import messageRoute from './Routes/message.route.js'
 import { app, server } from './SocketIO/server.js';
 dotenv.config();
 // const app = express();
+const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
+const PORT = process.env.PORT || 3000;
 app.use(cookieParser())
-app.use(cors({ origin: "http://localhost:5173", credentials: true }))
+app.use(cors({ origin: CLIENT_URL, credentials: true }))
 app.use(express.json())
 const URI=process.env.MONGODB_URI;
 ///routes
 app.use("/api/user", userRoutes) 
 app.use("/api/message",messageRoute)
-try {
-    mongoose.connect(URI)
-    .then(console.log('Connected to MongoDB'))
-
-} catch (error) {
-    console.log(error)
-    
-}
-
-
-
- app.get('/', (req, res) => {
+app.get('/', (req, res) => {
     res.send('Hello World!');
 });
-const PORT =3000;
-server.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+const startServer = async () => {
+    try {
+        await mongoose.connect(URI);
+        console.log('Connected to MongoDB');
+        server.listen(PORT, () => {
+            console.log(`Server is running on port ${PORT}`);
+        });
+    } catch (error) {
+        console.log('Error while starting server:', error);
+        process.exit(1);
+    }
+};
+
+startServer();

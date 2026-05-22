@@ -11,7 +11,7 @@ const useGetAllUsers = () => {
             try {
                 const token=cookies.get("jwt")
                 const response= await axios.get("/api/user/allusers",{
-                    credentials:"include",
+                    withCredentials:true,
                     headers:{
                         Authorization:`bearer ${token}`
                     }

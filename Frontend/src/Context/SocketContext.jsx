@@ -11,10 +11,11 @@ export const SocketProvider = ({ children }) => {
     const [socket, setSocket] = useState(null)
     const [onlineUsers, setOnlineUsers] = useState([]);
     const { authUser } = useAuth()
+    const socketUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
     useEffect(() => {
         if (authUser) {
-            const socket = io("http://localhost:3000", {
+            const socket = io(socketUrl, {
                 query: {
                     userId: authUser.user._id,
                 },
@@ -30,7 +31,7 @@ export const SocketProvider = ({ children }) => {
                 setSocket(null);
             }
         }
-    }, [authUser])
+    }, [authUser, socketUrl])
     return (
         <socketContext.Provider value={{ socket, onlineUsers }}>
             {children}
