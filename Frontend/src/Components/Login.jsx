@@ -38,7 +38,7 @@ const Login = () => {
             <div className="w-full max-w-md bg-[#161b22] border border-[#30363d] rounded-2xl p-8 shadow-xl">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <h1 className="text-center text-2xl font-semibold text-gray-300 mb-1 tracking-wide">
-                        Chill <span className="text-green-400 font-bold">App</span>
+                        Chill <span className="text-green-400 font-bold">Yap</span>
                     </h1>
                     <h2 className="text-xl font-bold text-white mb-6">Login</h2>
 
