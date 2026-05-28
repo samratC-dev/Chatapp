@@ -3,9 +3,8 @@
   import { useSocketContext } from '../../Context/SocketContext';
 
   const User = ({ user }) => {
-    //  if (!user || !user.username) {
-    //   return null
-    // }
+    if (!user?.username) return null;
+
     const { selectedConversation, setSelectedConversation } = useConversation();
     const isSelected = selectedConversation?._id === user._id;
     const { socket, onlineUsers } = useSocketContext();
@@ -23,7 +22,7 @@
           <div className={`avatar ${isOnline ? "online" : ""}`}>
             <div className="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center overflow-hidden">
               <span className="text-lg font-semibold text-gray-300 flex items-center justify-center w-full h-full">
-                {user.username.charAt(0).toUpperCase()}
+                {user?.username?.charAt(0).toUpperCase() || "?"}
               </span>
             </div>
           </div>
